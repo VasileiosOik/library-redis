@@ -56,16 +56,16 @@ public class RedisConnectionConfiguration {
         return redisTemplate;
     }
 
+    @Bean
+    @Primary
+    CacheManager cacheManager() {
+        return RedisCacheManager.builder(jedisConnectionFactory()).build();
+    }
+
     private void logRedisProperties() {
         LOG.info("=============Redis Connection================");
         LOG.info("========== Redis host: {}", redisHost);
         LOG.info("========== Redis port: {}", redisPort);
         LOG.info("=============================================");
-    }
-
-    @Bean
-    @Primary
-    CacheManager cacheManager() {
-        return RedisCacheManager.builder(jedisConnectionFactory()).build();
     }
 }
